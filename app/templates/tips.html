@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gym Exercises</title>
+  <style>
+    /* Global Styles */
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f8f9fa;
+      color: #333;
+    }
+    
+    h1, h2 {
+      text-align: center;
+      color: #ff0015;
+    }
+
+    /* Container for exercises */
+    .exercise-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-top: 50px;
+    }
+
+    .exercise {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background-color: white;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      margin: 20px;
+      padding: 20px;
+      width: 80%;
+      border-radius: 8px;
+      transition: transform 0.3s ease;
+    }
+
+    .exercise:hover {
+      transform: scale(1.02);
+    }
+
+    .exercise img {
+      max-width: 300px;
+      border-radius: 8px;
+      object-fit: cover;
+    }
+
+    .exercise-details {
+      max-width: 600px;
+      padding-left: 20px;
+    }
+
+    .exercise-details h2 {
+      color: #ff0000;
+      font-size: 24px;
+      margin-bottom: 15px;
+    }
+
+    .exercise-details p {
+      font-size: 16px;
+      line-height: 1.6;
+    }
+
+    /* Responsive design */
+    @media (max-width: 768px) {
+      .exercise {
+        flex-direction: column;
+        text-align: center;
+      }
+
+      .exercise img {
+        margin-bottom: 15px;
+      }
+
+      .exercise-details {
+        padding-left: 0;
+        padding-right: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Gym Exercises Guide</h1>
+  </header>
+
+  <div class="exercise-container">
+    <!-- Exercise 1: Push-Up -->
+    <div class="exercise">
+      <img src="{{ url_for('static', filename='images/Push-Up.gif') }}" alt="Push-Up Animation">
+      <div class="exercise-details">
+        <h2>Push-Up</h2>
+        <p>Push-ups are one of the most effective bodyweight exercises to target the chest, shoulders, and triceps. This simple yet powerful move also engages your core, helping to strengthen your entire upper body. Start in a high plank position, lower your body toward the ground, and then push yourself back up to the starting position. You can modify the push-up by doing it on your knees or elevating your feet for increased intensity.</p>
+        <p><strong>Muscles Worked:</strong> Chest, Shoulders, Triceps, Core</p>
+      </div>
+    </div>
+
+    <!-- Exercise 2: Pull-Up -->
+    <div class="exercise">
+      <img src="{{ url_for('static', filename='images/Pull-Up.gif') }}" alt="Pull-Up Animation">
+      <div class="exercise-details">
+        <h2>Pull-Up</h2>
+        <p>The pull-up is a fantastic exercise for building strength in the back and biceps. It is often used to test upper body strength. To perform a pull-up, grip a horizontal bar with your palms facing away from you (overhand grip). Pull your chin above the bar, focusing on using your back muscles to do the work. This exercise can be modified with assistance bands or performed with a neutral grip (palms facing each other) to reduce difficulty.</p>
+        <p><strong>Muscles Worked:</strong> Back (Lats), Biceps, Forearms, Shoulders</p>
+      </div>
+    </div>
+
+    <!-- Exercise 3: Squat -->
+    <div class="exercise">
+      <img src="{{ url_for('static', filename='images/BARBELL-SQUAT.gif') }}" alt="Squat Animation">
+      <div class="exercise-details">
+        <h2>Squat</h2>
+        <p>The squat is a compound movement that targets your quads, hamstrings, glutes, and core. It’s essential for developing lower body strength and mobility. To perform a squat, stand with your feet shoulder-width apart, keeping your back straight. Lower your body by bending your knees and hips, keeping your knees behind your toes. Push through your heels to return to standing. Add weight for increased intensity with a barbell or dumbbells.</p>
+        <p><strong>Muscles Worked:</strong> Quads, Hamstrings, Glutes, Core</p>
+      </div>
+    </div>
+
+    <!-- Exercise 4: Deadlift -->
+    <div class="exercise">
+      <img src="{{ url_for('static', filename='images/Deadlift-form.gif') }}" alt="Deadlift Animation">
+      <div class="exercise-details">
+        <h2>Deadlift</h2>
+        <p>The deadlift is a full-body exercise that primarily targets the lower back, hamstrings, and glutes. It’s also highly effective for building overall strength. Stand with your feet hip-width apart and a barbell in front of you. Bend your knees and grip the barbell, then lift it by standing up, keeping your back straight throughout the motion. Return to the starting position by lowering the barbell back down with control.</p>
+        <p><strong>Muscles Worked:</strong> Lower Back, Hamstrings, Glutes, Core</p>
+      </div>
+    </div>
+
+    <!-- Exercise 5: Bench Press -->
+    <div class="exercise">
+      <img src="{{ url_for('static', filename='images/High-Cable-Crossover.gif') }}" alt="Bench Press Animation">
+      <div class="exercise-details">
+        <h2>
+            High Cable Crossove</h2>
+        <p>The bench press is a classic upper body exercise that targets the chest, shoulders, and triceps. To perform the bench press, lie on a bench and grip the barbell with your hands slightly wider than shoulder-width apart. Lower the barbell to your chest, keeping your elbows at about 45 degrees. Push the barbell back up to the starting position, engaging your chest and triceps as you do so. Dumbbells can be used as an alternative to a barbell for better range of motion.</p>
+        <p><strong>Muscles Worked:</strong> Chest, Shoulders, Triceps</p>
+      </div>
+    </div>
+
+    <!-- Exercise 6: Lunge -->
+    <div class="exercise">
+      <img src="{{ url_for('static', filename='images/Dumbbell-Push-Press.gif') }}" alt="Lunge Animation">
+      <div class="exercise-details">
+        <h2>Dumbbell Push Press </h2>
+        <p>Lunges are a great exercise for targeting the legs and glutes while also improving balance and stability. To perform a lunge, stand tall with your feet hip-width apart. Take a large step forward and lower your body until both knees form 90-degree angles. Push off with the front foot to return to the starting position. This exercise can be done with bodyweight or by holding dumbbells for added resistance.</p>
+        <p><strong>Muscles Worked:</strong> Quads, Glutes, Hamstrings, Core</p>
+      </div>
+    </div>
+
+    <!-- Exercise 7: Plank -->
+    <div class="exercise">
+      <img src="{{ url_for('static', filename='images/plank.gif') }}" alt="Plank Animation">
+      <div class="exercise-details">
+        <h2>Plank</h2>
+        <p>The plank is a static core exercise that improves strength and stability in the entire core. Begin in a forearm plank position, ensuring your body is in a straight line from head to heels. Engage your core and hold the position, maintaining a flat back and avoiding any sagging in your lower back. Planks can be modified with knee planks or side planks to increase variety and challenge.</p>
+        <p><strong>Muscles Worked:</strong> Core (Abs, Obliques), Shoulders, Back</p>
+      </div>
+    </div>
+
+    <!-- Exercise 8: Burpee -->
+    <div class="exercise">
+      <img src="{{ url_for('static', filename='images/5-Dot-drills-agility-exercise.gif') }}" alt="Burpee Animation">
+      <div class="exercise-details">
+        <h2>Burpee</h2>
+        <p>Arrange five markers on the ground in the sequence A-B-C-D-E to form the layout.
+            Stand on the initial markers, A and B. Swiftly jump forward to marker C, ensuring that your left foot lands precisely on the marker.</p>
+        <p><strong>Muscles Worked:</strong> Chest, Shoulders, Core, Quads, Glutes Duplicate the sequence, this time leading with your right leg. Strive to execute the drill with maximum speed while adhering to proper form.</p>
+      </div>
+    </div>
+
+  </div>
+</body>
+</html>

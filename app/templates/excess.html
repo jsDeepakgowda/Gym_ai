@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gym Exercise Recommendation</title>
+  <style>
+    /* Global Styles */
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f0f4f8;
+      color: #333;
+    }
+
+    h1, h2 {
+      text-align: center;
+      color: #007bff;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 20px;
+      background-color: white;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      overflow-y: auto; /* Ensure scroll when content overflows */
+      max-height: 90vh;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    input, select {
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      font-size: 16px;
+    }
+
+    button {
+      padding: 10px 15px;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #b30012;
+    }
+
+    .recommendation {
+      margin-top: 30px;
+      padding: 15px;
+      background-color: #ebffe9;
+      border-left: 5px solid #59ff00;
+      font-size: 18px;
+      display: none;
+    }
+
+    .exercise-list {
+      margin-top: 15px;
+    }
+
+    .exercise-list ul {
+      list-style-type: none;
+      padding: 0;
+    }
+
+    .exercise-list li {
+      margin-bottom: 10px;
+    }
+
+    .day-header {
+      font-size: 20px;
+      font-weight: bold;
+      color: #00ff7b;
+      margin-top: 20px;
+    }
+
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h1>Gym Exercise Recommendation</h1>
+    <form id="fitness-form">
+      <label for="age">Age:</label>
+      <input type="number" id="age" required placeholder="Enter your age" min="18">
+
+      <label for="weight">Weight (kg):</label>
+      <input type="number" id="weight" required placeholder="Enter your weight" min="30">
+
+      <label for="goal">Fitness Goal:</label>
+      <select id="goal" required>
+        <option value="general">General Fitness</option>
+        <option value="strength">Strength Training</option>
+        <option value="muscle">Muscle Gain</option>
+        <option value="fatloss">Fat Loss</option>
+      </select>
+
+      <button type="submit">Get Recommendation</button>
+    </form>
+
+    <div id="recommendation" class="recommendation">
+      <h2>Your Recommended Workout:</h2>
+      <div class="exercise-list">
+        <ul id="exercise-list">
+          <!-- Exercises will be listed here -->
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Expanded exercise recommendation data for multiple days
+    const exerciseData = {
+      general: {
+        "Day 1": [
+          'Squats (3 sets of 10-12 reps)',
+          'Push-ups (3 sets of 8-12 reps)',
+          'Planks (Hold for 30 seconds, 3 rounds)',
+          'Dumbbell Rows (3 sets of 10-12 reps)',
+          'Leg Raises (3 sets of 15 reps)'
+        ],
+        "Day 2": [
+          'Walking or light jogging (20 minutes)',
+          'Lunges (3 sets of 12 reps per leg)',
+          'Bicycle Crunches (3 sets of 20 reps)',
+          'Side Plank (30 seconds per side, 3 rounds)',
+          'Mountain Climbers (3 sets of 30 seconds)'
+        ],
+        "Day 3": [
+          'Dumbbell Rows (3 sets of 10-12 reps)',
+          'Jump Rope (5 minutes)',
+          'Mountain Climbers (3 sets of 30 seconds)',
+          'Kettlebell Swings (3 sets of 15 reps)',
+          'Jump Squats (3 sets of 12 reps)'
+        ],
+        "Day 4": [
+          'Leg Press (3 sets of 12 reps)',
+          'Dips (3 sets to failure)',
+          'Pull-ups (3 sets to failure)',
+          'Plank (Hold for 45 seconds, 3 rounds)',
+          'Russian Twists (3 sets of 20 reps)'
+        ],
+        "Day 5": [
+          'Burpees (3 sets of 15 reps)',
+          'High Knees (3 sets of 30 seconds)',
+          'Jumping Jacks (3 sets of 30 seconds)',
+          'Walking Lunges (3 sets of 12 reps)',
+          'Push-ups (3 sets of 10-12 reps)'
+        ]
+      },
+      strength: {
+        "Day 1": [
+          'Barbell Bench Press (4 sets of 6-8 reps)',
+          'Overhead Press (4 sets of 6-8 reps)',
+          'Push-ups (3 sets of 8-12 reps)',
+          'Barbell Squats (4 sets of 6-8 reps)',
+          'Dumbbell Shoulder Press (3 sets of 8-10 reps)'
+        ],
+        "Day 2": [
+          'Deadlifts (4 sets of 5 reps)',
+          'Barbell Rows (4 sets of 6-8 reps)',
+          'Pull-ups (3 sets to failure)',
+          'Lat Pulldown (3 sets of 8-10 reps)',
+          'Dumbbell Curls (3 sets of 10-12 reps)'
+        ],
+        "Day 3": [
+          'Squats (4 sets of 6-8 reps)',
+          'Romanian Deadlifts (3 sets of 10 reps)',
+          'Leg Press (3 sets of 10-12 reps)',
+          'Barbell Rows (4 sets of 6-8 reps)',
+          'Bicep Curls (3 sets of 10 reps)'
+        ],
+        "Day 4": [
+          'Incline Bench Press (3 sets of 6-8 reps)',
+          'Dips (3 sets to failure)',
+          'Cable Chest Flyes (3 sets of 12 reps)',
+          'Lunges (3 sets of 12 reps per leg)',
+          'Overhead Triceps Extension (3 sets of 10 reps)'
+        ],
+        "Day 5": [
+          'Deadlifts (4 sets of 6 reps)',
+          'Barbell Rows (4 sets of 8 reps)',
+          'Overhead Press (4 sets of 6-8 reps)',
+          'Leg Curls (3 sets of 12 reps)',
+          'Cable Tricep Pushdowns (3 sets of 10 reps)'
+        ]
+      },
+      muscle: {
+        "Day 1": [
+          'Incline Dumbbell Press (4 sets of 8-10 reps)',
+          'Barbell Rows (4 sets of 8-10 reps)',
+          'Pull-ups (3 sets to failure)',
+          'Dumbbell Shoulder Press (3 sets of 10-12 reps)',
+          'Lunges (3 sets of 12 reps per leg)'
+        ],
+        "Day 2": [
+          'Leg Press (4 sets of 10 reps)',
+          'Romanian Deadlifts (3 sets of 10 reps)',
+          'Lunges (3 sets of 12 reps per leg)',
+          'Barbell Squats (3 sets of 8 reps)',
+          'Leg Extensions (3 sets of 12 reps)'
+        ],
+        "Day 3": [
+          'Overhead Shoulder Press (4 sets of 8-10 reps)',
+          'Bicep Curls (3 sets of 10-12 reps)',
+          'Triceps Dips (3 sets of 10-12 reps)',
+          'Leg Curls (3 sets of 12 reps)',
+          'Chest Flyes (3 sets of 10-12 reps)'
+        ],
+        "Day 4": [
+          'Barbell Rows (4 sets of 6-8 reps)',
+          'Barbell Squats (4 sets of 6-8 reps)',
+          'Incline Dumbbell Press (3 sets of 10-12 reps)',
+          'Cable Rows (3 sets of 12 reps)',
+          'Push-ups (3 sets of 12 reps)'
+        ],
+        "Day 5": [
+          'Squats (4 sets of 6 reps)',
+          'Leg Press (4 sets of 10 reps)',
+          'Chest Press Machine (3 sets of 12 reps)',
+          'Cable Curls (3 sets of 12 reps)',
+          'Tricep Kickbacks (3 sets of 12 reps)'
+        ]
+      },
+      fatloss: {
+        "Day 1": [
+          'Burpees (3 sets of 15 reps)',
+          'Jump Rope (5 minutes)',
+          'Mountain Climbers (3 sets of 30 seconds)',
+          'Bodyweight Squats (3 sets of 15 reps)',
+          'Push-ups (3 sets of 10-12 reps)'
+        ],
+        "Day 2": [
+          'HIIT Cardio (20 minutes)',
+          'Squat Jumps (3 sets of 15 reps)',
+          'High Knees (3 sets of 30 seconds)',
+          'Jumping Jacks (3 sets of 30 seconds)',
+          'Plank (Hold for 1 minute, 3 rounds)'
+        ],
+        "Day 3": [
+          'Jumping Jacks (3 sets of 30 seconds)',
+          'Burpees (3 sets of 15 reps)',
+          'Plank (Hold for 45 seconds, 3 rounds)',
+          'Mountain Climbers (3 sets of 30 seconds)',
+          'Push-ups (3 sets of 12 reps)'
+        ],
+        "Day 4": [
+          'Jump Rope (5 minutes)',
+          'High Knees (3 sets of 30 seconds)',
+          'Squat Pulses (3 sets of 15 reps)',
+          'Plank (Hold for 1 minute, 3 rounds)',
+          'Lunges (3 sets of 12 reps per leg)'
+        ],
+        "Day 5": [
+          'Burpees (3 sets of 20 reps)',
+          'Jump Squats (3 sets of 15 reps)',
+          'Mountain Climbers (3 sets of 30 seconds)',
+          'Plank to Push-up (3 sets of 10 reps)',
+          'Leg Raises (3 sets of 15 reps)'
+        ]
+      }
+    };
+
+    // Handle form submission
+    document.getElementById('fitness-form').addEventListener('submit', function(event) {
+      event.preventDefault();
+
+      const age = parseInt(document.getElementById('age').value);
+      const weight = parseInt(document.getElementById('weight').value);
+      const goal = document.getElementById('goal').value;
+
+      if (age < 18 || weight < 30) {
+        alert("Please provide valid age and weight.");
+        return;
+      }
+
+      // Show recommendation based on the selected goal
+      showRecommendation(goal);
+    });
+
+    // Function to display workout recommendations based on goal
+    function showRecommendation(goal) {
+      const recommendationElement = document.getElementById('recommendation');
+      const exerciseList = document.getElementById('exercise-list');
+
+      // Clear any previous exercises
+      exerciseList.innerHTML = '';
+
+      // Get exercises for selected goal
+      const exercises = exerciseData[goal];
+
+      for (const day in exercises) {
+        const dayHeader = document.createElement('li');
+        dayHeader.textContent = day;
+        dayHeader.classList.add('day-header');
+        exerciseList.appendChild(dayHeader);
+
+        exercises[day].forEach(exercise => {
+          const listItem = document.createElement('li');
+          listItem.textContent = exercise;
+          exerciseList.appendChild(listItem);
+        });
+      }
+
+      // Show the recommendation section
+      recommendationElement.style.display = 'block';
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,181 @@
+{
+  "intents": [
+    {
+      "tag": "gym_opening_hours",
+      "patterns": [
+        "What are your gym hours?",
+        "When is the gym open?",
+        "What time do you open?",
+        "Is the gym open today?",
+        "What time does the gym close?"
+      ],
+      "responses": [
+        "We are open from 6:00 AM to 10:00 PM every day.",
+        "The gym opens at 6 AM and closes at 10 PM daily.",
+        "Our opening hours are 6 AM to 10 PM. Feel free to drop by!",
+        "We are open 7 days a week, from 6 AM to 10 PM."
+      ]
+    },
+    {
+      "tag": "membership_details",
+      "patterns": [
+        "How much is the gym membership?",
+        "What are the membership plans?",
+        "Tell me about your gym membership.",
+        "How can I sign up for a gym membership?",
+        "What are the benefits of your gym membership?"
+      ],
+      "responses": [
+        "Our memberships start at $30 per month. We offer monthly, quarterly, and annual plans.",
+        "You can sign up for a monthly, quarterly, or annual membership. Prices vary.",
+        "We have several membership plans. Please check our website for detailed pricing.",
+        "Sign up for our gym membership online or at the front desk. Our monthly plan starts at $30."
+      ]
+    },
+    {
+      "tag": "gym_equipment",
+      "patterns": [
+        "What gym equipment do you have?",
+        "Do you have dumbbells?",
+        "Do you have cardio machines?",
+        "What kind of gym equipment do you offer?",
+        "Is there a bench press at your gym?"
+      ],
+      "responses": [
+        "We have a wide range of gym equipment including dumbbells, barbells, treadmills, ellipticals, and more.",
+        "Yes, we have dumbbells, free weights, and cardio machines like treadmills and stationary bikes.",
+        "Our gym is equipped with all essential machines, including strength training equipment, cardio machines, and resistance machines.",
+        "We have everything from free weights to cardio machines. You can train for strength, endurance, or flexibility."
+      ]
+    },
+    {
+      "tag": "personal_training",
+      "patterns": [
+        "Do you offer personal training?",
+        "How much does personal training cost?",
+        "How can I book a personal trainer?",
+        "Can I get a personal trainer?",
+        "Do you have personal trainers at your gym?"
+      ],
+      "responses": [
+        "Yes, we offer personal training services. Prices start at $50 per session.",
+        "You can book a personal trainer at the front desk or online. Sessions are available for $50 each.",
+        "Our personal trainers are available to guide you through your fitness journey. Contact the front desk for more details.",
+        "We offer one-on-one training sessions. Please visit the front desk to book an appointment."
+      ]
+    },
+    {
+      "tag": "fitness_classes",
+      "patterns": [
+        "What fitness classes do you offer?",
+        "Do you have yoga classes?",
+        "What types of fitness classes can I join?",
+        "When are your fitness classes?",
+        "Do you offer group fitness classes?"
+      ],
+      "responses": [
+        "We offer various fitness classes including yoga, pilates, Zumba, and spinning.",
+        "Yes, we have yoga, pilates, and high-intensity interval training (HIIT) classes throughout the week.",
+        "Our fitness classes include yoga, spinning, and strength training. Check our class schedule online!",
+        "We offer daily group fitness classes. Please check our schedule for specific timings."
+      ]
+    },
+    {
+      "tag": "nutrition",
+      "patterns": [
+        "Can you help with nutrition advice?",
+        "What should I eat to build muscle?",
+        "Do you have any nutrition tips?",
+        "Can I get a diet plan from you?",
+        "What foods are good for weight loss?"
+      ],
+      "responses": [
+        "We recommend a balanced diet with a focus on protein for muscle building. You can ask one of our trainers for a personalized plan.",
+        "For muscle building, increase your protein intake and stay hydrated. A diet rich in vegetables and whole grains is essential.",
+        "Eating a balanced diet with lean proteins, healthy fats, and whole grains will help you lose weight safely.",
+        "Our trainers can help create a diet plan that fits your fitness goals. Contact the front desk for more information."
+      ]
+    },
+    {
+      "tag": "gym_rules",
+      "patterns": [
+        "What are the rules of the gym?",
+        "Are there any gym etiquette guidelines?",
+        "Do you have a dress code for the gym?",
+        "What should I bring to the gym?",
+        "What are your gym policies?"
+      ],
+      "responses": [
+        "Please wear proper workout attire, and be respectful of others. We also ask that you clean up after using the equipment.",
+        "Our gym etiquette includes wiping down equipment after use, wearing appropriate workout shoes, and respecting others' space.",
+        "We have a dress code for safety reasons—please wear comfortable, non-restrictive clothing and athletic shoes.",
+        "Please bring your own water bottle and towel. If you're using the personal training services, you might also want to bring a notepad."
+      ]
+    },
+    {
+      "tag": "membership_cancellation",
+      "patterns": [
+        "How can I cancel my gym membership?",
+        "What’s the process to cancel my membership?",
+        "Can I cancel my membership online?",
+        "I want to cancel my membership.",
+        "How do I stop my gym membership?"
+      ],
+      "responses": [
+        "You can cancel your membership at any time by visiting the front desk or contacting customer service.",
+        "To cancel your membership, please fill out a cancellation form at the front desk or send an email to our support team.",
+        "Yes, membership cancellation is easy. Just visit our front desk or reach out to our team online for assistance.",
+        "To cancel your membership, simply contact us, and we’ll take care of the rest. Note that cancellation may take up to 30 days."
+      ]
+    },
+    {
+      "tag": "workout_routines",
+      "patterns": [
+        "Can you suggest a workout routine?",
+        "What’s a good workout for beginners?",
+        "How can I improve my strength?",
+        "Can you help me with a workout plan?",
+        "What exercises should I do for abs?"
+      ],
+      "responses": [
+        "For beginners, we recommend starting with full-body workouts 2-3 times a week with a mix of cardio and strength training.",
+        "To improve strength, focus on compound movements like squats, deadlifts, and bench presses.",
+        "Here’s a simple ab routine: 3 sets of crunches, leg raises, and planks. Try to hold the plank for 30 seconds.",
+        "We have trainers who can help create a personalized workout plan for you. Just speak to one of them at the gym!"
+      ]
+    },
+    {
+      "tag": "gym_community",
+      "patterns": [
+        "Is there a gym community?",
+        "Can I join a gym group?",
+        "Do you have any gym challenges?",
+        "Are there any social events at the gym?",
+        "How can I connect with other members?"
+      ],
+      "responses": [
+        "We have a great community here. You can join our fitness challenges or meet others in our group classes.",
+        "Yes, we organize regular fitness challenges, events, and group activities for members to connect.",
+        "You can join our gym's social events or challenge groups. It's a great way to meet other fitness enthusiasts!",
+        "We encourage a sense of community. Join our group classes, participate in challenges, or follow us on social media for updates."
+      ]
+    },
+    {
+      "tag": "personal_training_recommendation",
+      "patterns": [
+        "Can you recommend a personal training program for me?",
+        "What type of personal trainer should I get?",
+        "I need help choosing a personal trainer.",
+        "What kind of personal training program should I follow?",
+        "Which personal trainer would be best for me?"
+      ],
+      "responses": [
+        "If you're looking to lose weight, we recommend a combination of strength training and cardio with a focus on high-intensity interval training (HIIT). Our personal trainers can design a plan tailored to your goals.",
+        "If your goal is to build muscle, I would suggest focusing on strength training with compound movements. Our personal trainers are excellent at creating personalized plans.",
+        "We have trainers who specialize in different areas, such as weight loss, muscle gain, flexibility, and sports conditioning. It’s best to speak with one of our trainers to determine your specific needs and goals.",
+        "For general fitness, a mix of cardio and resistance training is great. But for something more personalized, our trainers can assess your fitness level and create a routine based on your preferences.",
+        "If you want to improve flexibility and overall well-being, yoga and pilates may be great options. Our personal trainers offer specialized sessions in these areas too."
+      ]
+    }
+  ]
+}

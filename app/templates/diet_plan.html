@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Diet Plan</title>
+    <!-- Link to Bootstrap CSS for responsive design -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        /* General Body Styling */
+        body {
+            background-color: #ffffff;
+            color: #333;
+            font-family: 'Poppins', sans-serif;
+            padding-top: 30px;
+        }
+
+        /* Header Styling */
+        h1 {
+            color: #d32f2f; 
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 3rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            line-height: 1.2;
+        }
+
+        h2 {
+            color: #d32f2f;
+            margin-top: 20px;
+            font-size: 2rem;
+            font-weight: 600;
+        }
+
+        /* Container Styling */
+        .diet-plan-container {
+            max-width: 900px;
+            margin: 30px auto;
+            background-color: #ffffff;
+            border-radius: 15px;
+            padding: 40px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            border-top: 5px solid #d32f2f;
+            transition: transform 0.3s ease-in-out;
+        }
+
+        /* Hover effect on diet-plan-container */
+        .diet-plan-container:hover {
+            transform: scale(1.02);
+        }
+
+        /* Meal List */
+        .meal-list {
+            list-style-type: none;
+            padding-left: 0;
+        }
+
+        .meal-list li {
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+            color: #555;
+            transition: 0.3s ease-in-out;
+            padding: 10px;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+            border: 1px solid #ddd;
+        }
+
+        .meal-list li:hover {
+            transform: scale(1.05);
+            color: #fff;
+            background-color: #d32f2f;
+        }
+
+        .meal-time {
+            font-weight: bold;
+            font-size: 1.3rem;
+            color: #d32f2f;
+        }
+
+        /* Button Styling */
+        .download-btn {
+            display: block;
+            width: 100%;
+            padding: 15px;
+            background-color: #d32f2f;
+            color: #fff;
+            text-align: center;
+            text-decoration: none;
+            border-radius: 8px;
+            font-size: 1.2rem;
+            margin-top: 30px;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .download-btn:hover {
+            background-color: #b71c1c;
+            transform: scale(1.05);
+        }
+
+        /* Card Styling */
+        .card {
+            background-color: #ffffff;
+            border: none;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+        }
+
+        .card-header {
+            font-size: 1.5rem;
+            color: #d32f2f;
+            font-weight: 600;
+            border-bottom: 2px solid #d32f2f;
+            padding-bottom: 10px;
+        }
+
+        .card-body {
+            font-size: 1.1rem;
+            color: #555;
+        }
+
+        /* Tooltips for accessibility */
+        .download-btn:hover::after {
+            content: "Click to download your custom diet plan.";
+            font-size: 1rem;
+            color: #fff;
+            background-color: #333;
+            padding: 5px;
+            border-radius: 5px;
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            z-index: 10;
+        }
+
+        /* Mobile & Tablet-Friendly Layout */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.5rem;
+            }
+
+            h2 {
+                font-size: 1.8rem;
+            }
+
+            .diet-plan-container {
+                padding: 20px;
+            }
+
+            .download-btn {
+                font-size: 1rem;
+            }
+
+            .meal-list li {
+                font-size: 1rem;
+            }
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="diet-plan-container">
+        <h1>Your Custom Diet Plan</h1>
+
+        <p><strong>Goal:</strong> {{ goal }}</p>
+        <p><strong>Target Calories:</strong> {{ target_calories }} kcal/day</p>
+
+        <h2>Meals</h2>
+        
+        {% for meal_time, meals in food_plan.items() %}
+        <div class="card">
+            <div class="card-header meal-time">{{ meal_time.capitalize() }}</div>
+            <div class="card-body">
+                <ul class="meal-list">
+                    {% for meal in meals %}
+                    <li>{{ meal }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+        {% endfor %}
+
+        <p><strong>Diet plan saved successfully!</strong></p>
+        
+    </div>
+
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.0.6/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+</body>
+</html>

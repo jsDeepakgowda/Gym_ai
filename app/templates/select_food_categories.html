@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Select Your Food</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        /* Global Styles */
+        body {
+            background-color: #f4f8fb;
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            margin-top: 50px;
+        }
+
+        .meal-buttons {
+            display: flex;
+            justify-content: space-evenly;
+            margin-bottom: 30px;
+        }
+
+        .meal-buttons button {
+            width: 20%;
+            padding: 15px;
+            font-size: 16px;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 123, 255, 0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .meal-buttons button:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 15px rgba(0, 123, 255, 0.3);
+        }
+
+        .main-content {
+            display: flex;
+            justify-content: space-between;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        /* Card Style for Categories */
+        .categories, .meal-info, .chart {
+            background-color: #fff;
+            border-radius: 12px;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            flex-basis: 30%;
+            min-width: 300px;
+        }
+
+        h3 {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            color: #343a40;
+        }
+
+        .food-item {
+            padding: 12px;
+            margin-bottom: 15px;
+            border-radius: 8px;
+            border: 2px solid #ddd;
+            background-color: #fafafa;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .food-item.selected {
+            background-color: #007bff;
+            color: #fff;
+            pointer-events: none;
+            transform: scale(1.05);
+        }
+
+        .food-item:hover {
+            background-color: #e9ecef;
+        }
+
+        .selected-meal {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            margin-bottom: 15px;
+        }
+
+        .selected-item {
+            padding: 12px;
+            border: 1px solid #ddd;
+            background-color: #007bff;
+            color: white;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .selected-item:hover {
+            transform: scale(1.05);
+        }
+
+        /* Nutrition Bar Styles */
+        .bar {
+            height: 20px;
+            border-radius: 8px;
+            margin: 10px 0;
+            transition: width 0.5s ease-in-out;
+        }
+
+        .yellow-bar {
+            background-color: #f39c12;
+        }
+
+        .green-bar {
+            background-color: #2ecc71;
+        }
+
+        .blue-bar {
+            background-color: #3498db;
+        }
+
+        /* Chart Section */
+        canvas {
+            border-radius: 12px;
+        }
+
+        /* Button Styles */
+        .btn-success {
+            background-color: #28a745;
+            border: none;
+            padding: 12px 30px;
+            font-size: 16px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .btn-success:disabled {
+            background-color: #d6e1e5;
+        }
+
+        .btn-success:hover {
+            background-color: #218838;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <!-- Horizontal Meal Buttons -->
+        <div class="meal-buttons">
+            <button id="breakfast-btn" class="btn btn-primary">Breakfast</button>
+            <button id="lunch-btn" class="btn btn-primary">Lunch</button>
+            <button id="snack-btn" class="btn btn-primary">Snack</button>
+            <button id="dinner-btn" class="btn btn-primary">Dinner</button>
+        </div>
+
+        <div class="main-content">
+            <!-- Left side: Meal items (food selection) -->
+            <div id="food-list" class="categories">
+                <h3>Food Categories</h3>
+                <!-- Dynamically populated list of food items will go here -->
+            </div>
+
+            <!-- Middle section: Display food info and selected items -->
+            <div id="meal-info" class="meal-info">
+                <h3>Selected Food Nutritional Information</h3>
+
+                <div id="selected-meal" class="selected-meal">
+                    <!-- Selected items will be displayed here -->
+                </div>
+
+                <p><strong>Total Calories:</strong> <span id="total-calories">0</span> kcal</p>
+                <div class="bar yellow-bar" id="calories-bar"></div>
+
+                <p><strong>Total Protein:</strong> <span id="total-protein">0</span> g</p>
+                <div class="bar green-bar" id="protein-bar"></div>
+
+                <p><strong>Total Fat:</strong> <span id="total-fat">0</span> g</p>
+                <div class="bar yellow-bar" id="fat-bar"></div>
+
+                <button id="generate-chart-btn" class="btn btn-success" disabled>Generate Nutritional Chart</button>
+            </div>
+
+            <!-- Right side: Chart section -->
+            <div id="chart-section" class="chart">
+                <h3>Chart</h3>
+                <canvas id="nutritional-chart" width="400" height="400"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.0.6/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <script>
+        // Data for food categories (this would be dynamically generated from the server-side)
+        const foodCategories = {
+            breakfast: {
+                vegetables: [
+                    { name: 'Spinach', calories: 23, protein: 2.9, fat: 0.4 },
+                    { name: 'Tomato', calories: 18, protein: 0.9, fat: 0.2 },
+                ],
+                fruits: [
+                    { name: 'Banana', calories: 89, protein: 1.1, fat: 0.3 },
+                    { name: 'Apple', calories: 52, protein: 0.3, fat: 0.2 },
+                ],
+                grains: [
+                    { name: 'Oats', calories: 389, protein: 16.9, fat: 6.9 },
+                    { name: 'Whole Wheat Bread', calories: 80, protein: 3.5, fat: 1.0 },
+                ],
+                proteins: [
+                    { name: 'Egg', calories: 68, protein: 6, fat: 4.8 },
+                    { name: 'Greek Yogurt', calories: 59, protein: 10, fat: 0.4 },
+                ]
+            },
+            lunch: {
+                vegetables: [
+                    { name: 'Broccoli', calories: 55, protein: 3.7, fat: 0.6 },
+                    { name: 'Carrot', calories: 41, protein: 0.9, fat: 0.2 },
+                ],
+                proteins: [
+                    { name: 'Chicken Breast', calories: 165, protein: 31, fat: 3.6 },
+                    { name: 'Salmon', calories: 206, protein: 22, fat: 12 },
+                ]
+            },
+            snack: {
+                nuts: [
+                    { name: 'Almonds', calories: 575, protein: 21, fat: 49 },
+                    { name: 'Cashews', calories: 553, protein: 18, fat: 44 },
+                ],
+                fruits: [
+                    { name: 'Orange', calories: 47, protein: 0.9, fat: 0.1 },
+                    { name: 'Strawberries', calories: 32, protein: 0.7, fat: 0.3 },
+                ]
+            },
+            dinner: {
+                meats: [
+                    { name: 'Beef Steak', calories: 242, protein: 22, fat: 17 },
+                    { name: 'Chicken Thigh', calories: 229, protein: 22, fat: 14 },
+                ],
+                vegetables: [
+                    { name: 'Kale', calories: 49, protein: 4.3, fat: 0.9 },
+                    { name: 'Asparagus', calories: 20, protein: 2.2, fat: 0.1 },
+                ]
+            }
+        };
+
+        let selectedItems = [];
+        let currentMeal = null;
+
+        // Handle button clicks for each meal
+        document.getElementById('breakfast-btn').addEventListener('click', function() {
+            currentMeal = 'breakfast';
+            displayFoodItems(currentMeal);
+        });
+        document.getElementById('lunch-btn').addEventListener('click', function() {
+            currentMeal = 'lunch';
+            displayFoodItems(currentMeal);
+        });
+        document.getElementById('snack-btn').addEventListener('click', function() {
+            currentMeal = 'snack';
+            displayFoodItems(currentMeal);
+        });
+        document.getElementById('dinner-btn').addEventListener('click', function() {
+            currentMeal = 'dinner';
+            displayFoodItems(currentMeal);
+        });
+
+        function displayFoodItems(meal) {
+            const foodListContainer = document.getElementById('food-list');
+            foodListContainer.innerHTML = ''; // Clear previous list
+            const categories = foodCategories[meal];
+
+            // Dynamically generate food items based on categories
+            for (let category in categories) {
+                const categoryDiv = document.createElement('div');
+                const categoryTitle = document.createElement('h4');
+                categoryTitle.textContent = category.charAt(0).toUpperCase() + category.slice(1);
+                categoryDiv.appendChild(categoryTitle);
+
+                categories[category].forEach(food => {
+                    const foodItem = document.createElement('div');
+                    foodItem.classList.add('food-item');
+                    foodItem.textContent = food.name;
+                    foodItem.dataset.name = food.name;
+                    foodItem.dataset.calories = food.calories;
+                    foodItem.dataset.protein = food.protein;
+                    foodItem.dataset.fat = food.fat;
+
+                    // Add click event to select food item
+                    foodItem.addEventListener('click', function() {
+                        if (!foodItem.classList.contains('selected')) {
+                            foodItem.classList.add('selected');
+                            selectedItems.push(food);
+                            updateTotalInfo();
+                        }
+                    });
+
+                    categoryDiv.appendChild(foodItem);
+                });
+
+                foodListContainer.appendChild(categoryDiv);
+            }
+        }
+
+        function updateTotalInfo() {
+            let totalCalories = 0;
+            let totalProtein = 0;
+            let totalFat = 0;
+
+            selectedItems.forEach(item => {
+                totalCalories += item.calories;
+                totalProtein += item.protein;
+                totalFat += item.fat;
+            });
+
+            // Update total information
+            document.getElementById('total-calories').textContent = totalCalories;
+            document.getElementById('total-protein').textContent = totalProtein;
+            document.getElementById('total-fat').textContent = totalFat;
+
+            // Update volume bars
+            updateBar('calories-bar', totalCalories, 2000);  // Max calories assumed to be 2000
+            updateBar('protein-bar', totalProtein, 150);      // Max protein assumed to be 150g
+            updateBar('fat-bar', totalFat, 100);              // Max fat assumed to be 100g
+
+            // Enable chart button if there are selected items
+            document.getElementById('generate-chart-btn').disabled = selectedItems.length === 0;
+        }
+
+        function updateBar(barId, value, max) {
+            const percentage = (value / max) * 100;
+            const bar = document.getElementById(barId);
+            bar.style.width = `${percentage}%`;
+        }
+
+        // Generate the chart when the button is clicked
+        document.getElementById('generate-chart-btn').addEventListener('click', function() {
+            const ctx = document.getElementById('nutritional-chart').getContext('2d');
+            const chartData = {
+                labels: ['Calories', 'Protein', 'Fat'],
+                datasets: [{
+                    label: 'Nutritional Breakdown',
+                    data: [
+                        selectedItems.reduce((sum, item) => sum + item.calories, 0),
+                        selectedItems.reduce((sum, item) => sum + item.protein, 0),
+                        selectedItems.reduce((sum, item) => sum + item.fat, 0)
+                    ],
+                    backgroundColor: ['#FF5733', '#33FF57', '#3357FF']
+                }]
+            };
+
+            new Chart(ctx, {
+                type: 'bar',
+                data: chartData
+            });
+        });
+    </script>
+</body>
+</html>
